@@ -1,0 +1,133 @@
+﻿@model GiftOfTheGivers.Models.Donation
+
+@{
+    ViewData["Title"] = "Tax Certificate";
+}
+
+<div class="container py-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-8">
+
+            <div class="feature-card">
+
+                <div class="text-center border-bottom pb-4 mb-4">
+
+                    <div class="brand-logo mx-auto mb-3">
+                        
+                    </div>
+
+                    <h2 class="section-title">
+                        GIFT OF THE GIVERS FOUNDATION
+                    </h2>
+
+                    <p class="text-muted mb-0">
+                        Placeholder Donation Tax Certificate
+                    </p>
+
+                </div>
+
+
+                <div class="text-center mb-4">
+
+                    <h4>
+                        Certificate of Donation
+                    </h4>
+
+                    <p class="text-muted">
+                        Prototype document — not an official tax certificate
+                    </p>
+
+                </div>
+
+
+                <div class="row mb-3">
+
+                    <div class="col-sm-6">
+
+                        <strong>Donation ID</strong>
+
+                        <p>
+                            @Model.Id
+                        </p>
+
+                    </div>
+
+                    <div class="col-sm-6">
+
+                        <strong>Date</strong>
+
+                        <p>
+                            @Model.DonationDate.ToString("dd MMMM yyyy")
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="mb-3">
+
+                    <strong>Donor</strong>
+
+                    <p>
+                        @Model.DonorName
+                    </p>
+
+                </div>
+
+
+                <div class="mb-4">
+
+                    <strong>Donation Amount</strong>
+
+                    <p class="fs-4">
+
+                        @Model.Currency @Model.Amount.ToString("N2")
+
+                    </p>
+
+                </div>
+
+
+                <div class="alert alert-warning">
+
+                    <strong>Prototype disclaimer</strong>
+
+                    <p class="mb-0 mt-1">
+
+                        This certificate is generated for demonstration
+                        purposes only and does not constitute an official
+                        South African tax certificate.
+
+                    </p>
+
+                </div>
+
+
+                <div class="text-center mt-4">
+
+                    <button onclick="window.print()"
+                            class="btn btn-primary">
+
+                        Print / Save Certificate
+
+                    </button>
+
+                    <a asp-action="Index"
+                       class="btn btn-outline-secondary ms-2">
+
+                        Back to Donations
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

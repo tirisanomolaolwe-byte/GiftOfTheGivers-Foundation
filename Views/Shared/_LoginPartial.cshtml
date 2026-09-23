@@ -1,0 +1,40 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using GiftOfTheGivers.Models
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<ul class="navbar-nav">
+@if (SignInManager.IsSignedIn(User))
+{
+    <li class="nav-item">
+        <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>
+    </li>
+    <li class="nav-item">
+        <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+            <button  type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+        </form>
+    </li>
+}
+else
+{
+    <!-- Two distinct register entry points: regular user and employee -->
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
+    </li>
+
+    <!-- Two distinct sign-in entry points: regular user and employee -->
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle text-dark" href="#" id="loginDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Sign in
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="loginDropdown">
+            <li>
+                <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Login" asp-route-role="Donor">Sign in as User</a>
+            </li>
+            <li>
+                <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Login" asp-route-role="Employee">Sign in as Employee</a>
+            </li>
+        </ul>
+    </li>
+}
+</ul>

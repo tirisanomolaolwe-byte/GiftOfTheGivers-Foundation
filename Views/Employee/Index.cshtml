@@ -1,0 +1,135 @@
+﻿@{
+    ViewData["Title"] = "Employee Dashboard";
+}
+
+<div class="container py-5">
+
+    <div class="mb-5">
+        <p class="text-success fw-bold text-uppercase">
+            Gift of the Givers
+        </p>
+
+        <h1 class="section-title">
+            Employee Dashboard
+        </h1>
+
+        <p class="section-subtitle">
+            Monitor relief operations, volunteer registrations
+            and donation activity from one central location.
+        </p>
+    </div>
+
+
+    <div class="row g-4 mb-5">
+
+        <!-- Projects -->
+
+        <div class="col-md-4">
+
+            <div class="feature-card h-100">
+
+                <div class="feature-icon">
+                    
+                </div>
+
+                <h3>
+                    @ViewBag.ProjectCount
+                </h3>
+
+                <p class="text-muted">
+                    Relief Projects
+                </p>
+
+                <a asp-action="ReliefProjects"
+                   class="btn btn-primary">
+
+                    Manage Projects
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- Volunteers -->
+
+        <div class="col-md-4">
+
+            <div class="feature-card h-100">
+
+                <div class="feature-icon">
+                    
+                </div>
+
+                <h3>
+                    @ViewBag.VolunteerCount
+                </h3>
+
+                <p class="text-muted">
+                    Volunteer Sign-ups
+                </p>
+
+                <a asp-action="Volunteers"
+                   class="btn btn-primary">
+
+                    View Volunteers
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- Donations -->
+
+        <div class="col-md-4">
+
+            <div class="feature-card h-100">
+
+                <div class="feature-icon">
+                    
+                </div>
+
+                <h3>
+                    @ViewBag.DonationCount
+                </h3>
+
+                <p class="text-muted">
+                    Donations Recorded
+                </p>
+
+                <a asp-controller="Donations"
+                   asp-action="Index"
+                   class="btn btn-primary">
+
+                    View Donations
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="alert alert-light border">
+
+        <h5>
+            Employee responsibilities
+        </h5>
+
+        <p class="mb-0 text-muted">
+
+            Employees can monitor volunteer registrations,
+            manage relief projects and review donation activity.
+            These functions will be protected by role-based
+            authorization.
+
+        </p>
+
+    </div>
+
+</div>
