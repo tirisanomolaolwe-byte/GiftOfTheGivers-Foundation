@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageId>GiftOfTheGivers.Helpers</PackageId>
+    <Description>Custom helper library for the Gift of the Givers application</Description>
+  </PropertyGroup>
+
+</Project>
