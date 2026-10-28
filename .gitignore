@@ -361,3 +361,17 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Local databases files
+*.db
+*.db-shm
+*.db-wal
+
+# Local secrets and environment files
+.env
+.env.*
+!.env.example
+
+# Test and performance-test output
+TestResults/
+jmeter.log
