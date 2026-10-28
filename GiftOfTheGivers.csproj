@@ -8,6 +8,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="GiftOfTheGivers.Functions/**/*.cs" />
+    <Compile Remove="GiftOfTheGivers.Helpers/**/*.cs" />
+    <EmbeddedResource Remove="GiftOfTheGivers.Functions/**/*" />
+    <EmbeddedResource Remove="GiftOfTheGivers.Helpers/**/*" />
+    <Content Remove="GiftOfTheGivers.Functions/**/*" />
+    <Content Remove="GiftOfTheGivers.Helpers/**/*" />
+    <None Remove="GiftOfTheGivers.Functions/**/*" />
+    <None Remove="GiftOfTheGivers.Helpers/**/*" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="app.db" CopyToOutputDirectory="PreserveNewest" ExcludeFromSingleFile="true" />
   </ItemGroup>
 

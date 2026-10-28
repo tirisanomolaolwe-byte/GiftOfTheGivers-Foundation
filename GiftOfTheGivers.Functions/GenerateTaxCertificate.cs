@@ -19,11 +19,12 @@ namespace GiftOfTheGivers.Functions
                     new JsonSerializerOptions
                     {
                         PropertyNameCaseInsensitive = true
-                    }); 
+                    });
 
                 if (donation == null)
                 {
-                    return new BadRequestObjectResult("Donation information is required.");
+                    return new BadRequestObjectResult(
+                        "Donation information is required.");
                 }
 
                 var certificate = new
