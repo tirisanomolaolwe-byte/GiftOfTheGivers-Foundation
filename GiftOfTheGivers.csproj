@@ -7,16 +7,25 @@
     <UserSecretsId>aspnet-GiftOfTheGivers-68efb453-440e-4510-a075-ca99b350cffc</UserSecretsId>
   </PropertyGroup>
 
+ 
   <ItemGroup>
     <Compile Remove="GiftOfTheGivers.Functions/**/*.cs" />
     <Compile Remove="GiftOfTheGivers.Helpers/**/*.cs" />
+    <Compile Remove="GiftOfTheGivers.Tests/**/*.cs" />
+
     <EmbeddedResource Remove="GiftOfTheGivers.Functions/**/*" />
     <EmbeddedResource Remove="GiftOfTheGivers.Helpers/**/*" />
+    <EmbeddedResource Remove="GiftOfTheGivers.Tests/**/*" />
+
     <Content Remove="GiftOfTheGivers.Functions/**/*" />
     <Content Remove="GiftOfTheGivers.Helpers/**/*" />
+    <Content Remove="GiftOfTheGivers.Tests/**/*" />
+
     <None Remove="GiftOfTheGivers.Functions/**/*" />
     <None Remove="GiftOfTheGivers.Helpers/**/*" />
+    <None Remove="GiftOfTheGivers.Tests/**/*" />
   </ItemGroup>
+
 
   <ItemGroup>
     <None Update="app.db" CopyToOutputDirectory="PreserveNewest" ExcludeFromSingleFile="true" />
