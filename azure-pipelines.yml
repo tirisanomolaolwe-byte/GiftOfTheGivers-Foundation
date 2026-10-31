@@ -25,7 +25,7 @@ steps:
 
   # Start the ASP.NET Core application in the background
   - powershell: |
-      $env:ASPNETCORE_URLS = "http://localhost:5164"
+      $env:ASPNETCORE_URLS = "http://localhost:7150"
 
       $app = Start-Process -FilePath "dotnet" `
         -ArgumentList "bin\Release\net10.0\GiftOfTheGivers.dll" `
