@@ -1,3 +1,4 @@
+
 trigger:
   branches:
     include:
@@ -7,23 +8,87 @@ pool:
   vmImage: 'windows-latest'
 
 steps:
+  # Install the .NET 10 SDK
   - task: UseDotNet@2
     displayName: 'Install .NET 10 SDK'
     inputs:
       packageType: 'sdk'
       version: '10.x'
 
+  # Restore NuGet packages
   - script: dotnet restore GiftOfTheGivers.slnx
     displayName: 'Restore NuGet packages'
 
+  # Build all projects
   - script: dotnet build GiftOfTheGivers.slnx --configuration Release --no-restore
     displayName: 'Build solution'
 
-  - script: dotnet test GiftOfTheGivers.slnx --configuration Release --no-build --logger "trx;LogFileName=TestResults.trx" --results-directory "$(Agent.TempDirectory)\TestResults"
+  # Start the ASP.NET Core application in the background
+  - powershell: |
+      $env:ASPNETCORE_URLS = "http://localhost:5164"
+
+      $app = Start-Process -FilePath "dotnet" `
+        -ArgumentList "bin\Release\net10.0\GiftOfTheGivers.dll" `
+        -PassThru `
+        -RedirectStandardOutput "$(Agent.TempDirectory)\webapp.log" `
+        -RedirectStandardError "$(Agent.TempDirectory)\webapp-error.log"
+
+      Write-Host "Started web application. Process ID: $($app.Id)"
+    displayName: 'Start web application'
+
+  # Wait until the website responds
+  - powershell: |
+      $url = "http://localhost:5164"
+      $ready = $false
+
+      for ($i = 0; $i -lt 30; $i++) {
+        try {
+          $response = Invoke-WebRequest -Uri $url -TimeoutSec 5
+          if ($response.StatusCode -eq 200) {
+            $ready = $true
+            break
+          }
+        }
+        catch {
+          Start-Sleep -Seconds 2
+        }
+      }
+
+      if (-not $ready) {
+        Write-Host "Web application output:"
+        Get-Content "$(Agent.TempDirectory)\webapp.log" -ErrorAction SilentlyContinue
+
+        Write-Host "Web application errors:"
+        Get-Content "$(Agent.TempDirectory)\webapp-error.log" -ErrorAction SilentlyContinue
+
+        throw "The web application did not become available."
+      }
+
+      Write-Host "Website is responding at $url"
+    displayName: 'Wait for website to start'
+
+  # Execute automated tests, including Selenium
+  - script: >
+      dotnet test GiftOfTheGivers.slnx
+      --configuration Release
+      --no-build
+      --logger "trx;LogFileName=TestResults.trx"
+      --results-directory "$(Agent.TempDirectory)\TestResults"
     displayName: 'Run automated tests'
 
+  # Stop the web application
+  - powershell: |
+      $process = Get-Process dotnet -ErrorAction SilentlyContinue
+      if ($process) {
+        $process | Stop-Process -Force
+      }
+    condition: always()
+    displayName: 'Stop web application'
+
+  # Publish test results even when tests fail
   - task: PublishTestResults@2
     displayName: 'Publish test results'
+    condition: always()
     inputs:
       testResultsFormat: 'VSTest'
       testResultsFiles: '$(Agent.TempDirectory)\TestResults\*.trx'
