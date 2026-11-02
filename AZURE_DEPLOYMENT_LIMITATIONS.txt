@@ -1,0 +1,61 @@
+GIFT OF THE GIVERS FOUNDATION
+AZURE DEPLOYMENT LIMITATIONS
+
+Purpose
+This document records the Azure deployment work completed for the project and the subscription restrictions encountered during implementation.
+
+1. Azure DevOps Pipeline – Hosted Parallelism
+
+The Azure Pipeline was configured using the azure-pipelines.yml file in the GitHub repository. However, the first pipeline run was blocked before any build or test steps could execute.
+
+Azure DevOps displayed the following message:
+
+"No hosted parallelism has been purchased or granted."
+
+This prevented the use of Microsoft-hosted agents to execute the pipeline. The application and tests were built and tested locally, and the tests passed in Visual Studio Test Explorer. However, this does not constitute a successful Azure Pipeline test run.
+
+2. Azure App Service – Service Connection Permissions
+
+An Azure Resource Manager service connection was required to allow Azure DevOps to deploy the web application to Azure App Service.
+
+The automatic service connection setup failed because the account did not have sufficient Microsoft Entra permissions to create an application registration.
+
+The alternative managed identity approach was also blocked. Azure reported that the account lacked permission to create a user-assigned managed identity, specifically:
+
+Microsoft.ManagedIdentity/userAssignedIdentities/write
+
+Additional permissions or administrator assistance would therefore be required to complete this configuration.
+
+3. Azure Functions – Subscription Policy Restrictions
+
+The Azure Functions project was successfully published locally using Visual Studio.
+
+However, creating the Azure Function App in Azure was blocked by a subscription policy. The deployment error indicated that the selected App Service Plan SKU was not permitted.
+
+The policy allowed Basic and Shared tiers, including B1, B2, B3 and D1 SKUs. The attempted Standard S1 plan was rejected.
+
+Consequently, local publishing was completed, but successful deployment to an Azure Function App could not be confirmed.
+
+4. Azure SQL Database – Schema Deployment
+
+An Azure SQL Database named GiftOfTheGiversDBSchema was created using the Basic pricing tier.
+
+The ReliefProjectUpdates table was successfully created through the Azure Portal Query Editor. Its columns were verified, and a test record was inserted and retrieved successfully.
+
+The corresponding SQL deployment script was added to the GitHub repository:
+
+Database/Scripts/001_Create_ReliefProjectUpdates.sql
+
+The script was committed and pushed to the main branch. This demonstrates that the schema script was prepared and that the database update was manually applied successfully.
+
+Automated execution of the SQL script through Azure DevOps was not completed.
+
+5. Conclusion
+
+The project includes the application code, automated test configuration, an Azure SQL schema deployment script, and a locally published Azure Functions project.
+
+Some cloud deployment activities could not be completed because of subscription-level restrictions, hosted parallelism limitations, and insufficient account permissions.
+
+These restrictions were outside the scope of the application's source code. The completed local work and successful manual Azure SQL update are documented separately from cloud deployment activities that remain incomplete.
+
+
