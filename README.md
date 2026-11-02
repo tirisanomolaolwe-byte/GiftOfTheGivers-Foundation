@@ -172,3 +172,5 @@ The project handover package includes:
 - Team Contribution Report.
 - Azure Deployment Limitations document.
 - Supporting screenshots and Git evidence.
+
+- # 12. FYI - Tirisano and Tirisao are the same person. A personal and school Github accounts (student virtual machine) were used to commit and contribute on this project.
